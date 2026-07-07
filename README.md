@@ -308,6 +308,8 @@ without personal data.
 4. Point the plugin at that folder in Settings → time.md → Export folder.
 5. Run **time.md: Open Overview** from the command palette.
 
+While enabled, the plugin also makes `.json`, `.csv`, `.yaml`, and `.yml` files visible in Obsidian’s file explorer and opens them in the text editor. Disable **Show data files in vault** in the plugin settings if you prefer Obsidian’s default file visibility.
+
 ## Manually installing (pre-release)
 
 1. Build locally: `npm install && npm run build`

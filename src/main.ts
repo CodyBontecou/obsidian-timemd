@@ -19,6 +19,17 @@ import { parseBlockParams, TimeMdBlock } from './embed';
 import { hexToRgb } from './utils';
 import { applyColorSchemeVars, clearColorSchemeVars, normalizeColorScheme } from './themePresets';
 
+const DATA_FILE_EXTENSIONS = ['json', 'csv', 'yaml', 'yml'];
+const MARKDOWN_VIEW_TYPE = 'markdown';
+
+interface ViewRegistryWithExtensions {
+	unregisterExtensions?: (extensions: string[]) => void;
+}
+
+interface AppWithViewRegistry {
+	viewRegistry?: ViewRegistryWithExtensions;
+}
+
 type ViewType =
 	| typeof VIEW_TYPE_OVERVIEW
 	| typeof VIEW_TYPE_TRENDS
@@ -34,9 +45,11 @@ export default class TimeMdPlugin extends Plugin {
 	settings!: TimeMdSettings;
 	store!: DataStore;
 	private reloadTimer: number | null = null;
+	private dataFileExtensionsRegistered = false;
 
 	async onload(): Promise<void> {
 		await this.loadSettings();
+		this.applyDataFileVisibility();
 		this.applyColorVars();
 
 		this.store = new DataStore(this.app, () => this.settings.exportFolder);
@@ -138,6 +151,7 @@ export default class TimeMdPlugin extends Plugin {
 			window.clearTimeout(this.reloadTimer);
 			this.reloadTimer = null;
 		}
+		this.unregisterDataFileExtensions();
 		this.clearColorVars();
 	}
 
@@ -165,6 +179,29 @@ export default class TimeMdPlugin extends Plugin {
 
 	refreshAllViews(): void {
 		this.store.trigger('changed');
+	}
+
+	applyDataFileVisibility(): boolean {
+		if (this.settings.showDataFiles) {
+			this.registerDataFileExtensions();
+			return true;
+		}
+		return this.unregisterDataFileExtensions();
+	}
+
+	private registerDataFileExtensions(): void {
+		if (this.dataFileExtensionsRegistered) return;
+		this.registerExtensions(DATA_FILE_EXTENSIONS, MARKDOWN_VIEW_TYPE);
+		this.dataFileExtensionsRegistered = true;
+	}
+
+	private unregisterDataFileExtensions(): boolean {
+		if (!this.dataFileExtensionsRegistered) return true;
+		const registry = (this.app as unknown as AppWithViewRegistry).viewRegistry;
+		if (!registry?.unregisterExtensions) return false;
+		registry.unregisterExtensions(DATA_FILE_EXTENSIONS);
+		this.dataFileExtensionsRegistered = false;
+		return true;
 	}
 
 	private isInExportFolder(path: string): boolean {

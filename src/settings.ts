@@ -5,6 +5,7 @@ import { normalizeColorScheme, TIME_MD_COLOR_SCHEMES, TimeMdColorScheme } from '
 export interface TimeMdSettings {
 	exportFolder: string;
 	autoReloadOnStartup: boolean;
+	showDataFiles: boolean;
 	accentColor: string;
 	heatmapColor: string;
 	colorScheme: TimeMdColorScheme;
@@ -16,6 +17,7 @@ export const DEFAULT_HEATMAP_COLOR = '#5865f2';
 export const DEFAULT_SETTINGS: TimeMdSettings = {
 	exportFolder: '',
 	autoReloadOnStartup: true,
+	showDataFiles: true,
 	accentColor: DEFAULT_ACCENT_COLOR,
 	heatmapColor: DEFAULT_HEATMAP_COLOR,
 	colorScheme: 'theme',
@@ -62,6 +64,17 @@ export class TimeMdSettingTab extends PluginSettingTab {
 				toggle.setValue(this.plugin.settings.autoReloadOnStartup).onChange(async (value) => {
 					this.plugin.settings.autoReloadOnStartup = value;
 					await this.plugin.saveSettings();
+				}),
+			);
+
+		new Setting(containerEl)
+			.setName('Show data files in vault')
+			.setDesc('Show data files in the file explorer and open them with the built-in text editor.')
+			.addToggle((toggle) =>
+				toggle.setValue(this.plugin.settings.showDataFiles).onChange(async (value) => {
+					this.plugin.settings.showDataFiles = value;
+					await this.plugin.saveSettings();
+					this.plugin.applyDataFileVisibility();
 				}),
 			);
 
