@@ -1,6 +1,6 @@
 # Mock data
 
-These files are synthetic time.md exports. Use them to preview embeds, test templates, or build screenshots without loading personal data.
+These files are synthetic time.md exports. Use them to preview embeds, test templates, or build screenshots without loading personal data. For equivalent mock exports in every supported import format, see [`../formats`](../formats).
 
 | File | Contains | Best for |
 |---|---|---|

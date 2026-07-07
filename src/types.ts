@@ -1,4 +1,4 @@
-export type SourceFormat = 'json' | 'csv' | 'markdown' | 'obsidian';
+export type SourceFormat = 'json' | 'csv' | 'yaml' | 'markdown' | 'obsidian';
 
 export interface ReportMetadata {
 	title: string;

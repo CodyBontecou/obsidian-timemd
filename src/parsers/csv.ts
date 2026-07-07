@@ -50,6 +50,11 @@ export function parseCsv(content: string, path: string): Report {
 
 		if (line.startsWith('#')) {
 			applyCommentMetadata(line, metadata);
+			const commentSectionName = parseCommentSectionName(line);
+			if (commentSectionName) {
+				flush();
+				current = { name: commentSectionName, headers: null, rows: [] };
+			}
 			continue;
 		}
 
@@ -141,6 +146,20 @@ function parseSectionName(line: string): string | null {
 	const match = /^\[(.+)\]$/.exec(line);
 	const name = match?.[1];
 	return name ? name.trim() : null;
+}
+
+function parseCommentSectionName(line: string): string | null {
+	const match = /^#\s*SECTION:\s*(.+)$/i.exec(line);
+	const name = match?.[1];
+	return name ? titleCaseSectionName(name.trim()) : null;
+}
+
+function titleCaseSectionName(name: string): string {
+	return name
+		.toLowerCase()
+		.split(/\s+/)
+		.map((part) => (part ? part[0]!.toUpperCase() + part.slice(1) : part))
+		.join(' ');
 }
 
 function trimRight(value: string): string {

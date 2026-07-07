@@ -1,19 +1,27 @@
+import { parseYaml as parseObsidianYaml } from 'obsidian';
 import { Report, ReportMetadata } from '../types';
 import { applyFilterMetadata, parseDate, parseDateRangeText } from '../utils';
 import { parseMarkdownBody } from './markdown';
+import { reportFromYamlData } from './yaml';
 
 export function parseObsidian(content: string, path: string): Report {
 	const { frontmatter, body, isObsidianFormat } = extractFrontmatter(content);
+
+	if (isObsidianFormat && containsReportSections(frontmatter)) {
+		return reportFromYamlData(frontmatter, path, 'obsidian');
+	}
+
 	const metadata: ReportMetadata = buildMetadataFromFrontmatter(frontmatter, path);
-	const report = parseMarkdownBody(body, path, isObsidianFormat ? 'obsidian' : 'markdown', metadata);
-	return report;
+	return parseMarkdownBody(body, path, isObsidianFormat ? 'obsidian' : 'markdown', metadata);
 }
 
-interface Frontmatter {
-	[k: string]: string | number | string[] | undefined;
-}
+type Frontmatter = Record<string, unknown>;
 
-function extractFrontmatter(content: string): { frontmatter: Frontmatter; body: string; isObsidianFormat: boolean } {
+function extractFrontmatter(content: string): {
+	frontmatter: Frontmatter;
+	body: string;
+	isObsidianFormat: boolean;
+} {
 	const lines = content.split(/\r?\n/);
 	if (lines[0]?.trim() !== '---') {
 		return { frontmatter: {}, body: content, isObsidianFormat: false };
@@ -23,83 +31,104 @@ function extractFrontmatter(content: string): { frontmatter: Frontmatter; body: 
 		if (lines[i]?.trim() === '---') { end = i; break; }
 	}
 	if (end === -1) return { frontmatter: {}, body: content, isObsidianFormat: false };
-	const fmLines = lines.slice(1, end);
+
+	const frontmatterText = lines.slice(1, end).join('\n');
 	const body = lines.slice(end + 1).join('\n');
-	const fm = parseSimpleYaml(fmLines);
-	return { frontmatter: fm, body, isObsidianFormat: true };
+	return {
+		frontmatter: parseFrontmatter(frontmatterText),
+		body,
+		isObsidianFormat: true,
+	};
 }
 
-function parseSimpleYaml(lines: string[]): Frontmatter {
-	const out: Frontmatter = {};
-	let i = 0;
-	while (i < lines.length) {
-		const line = lines[i] ?? '';
-		if (!line.trim() || line.trim().startsWith('#')) { i++; continue; }
-		const kv = line.match(/^([A-Za-z_][\w-]*)\s*:\s*(.*)$/);
-		if (!kv) { i++; continue; }
-		const key = kv[1]!;
-		const rawValue = (kv[2] ?? '').trim();
-		if (rawValue === '') {
-			const list: string[] = [];
-			i++;
-			while (i < lines.length) {
-				const next = lines[i] ?? '';
-				const item = next.match(/^\s+-\s+(.*)$/);
-				if (!item) break;
-				list.push(unquote(item[1] ?? ''));
-				i++;
-			}
-			out[key] = list;
-			continue;
-		}
-		const inlineList = rawValue.match(/^\[(.*)\]$/);
-		if (inlineList && inlineList[1] !== undefined) {
-			out[key] = inlineList[1]
-				.split(',')
-				.map((s) => unquote(s.trim()))
-				.filter(Boolean);
-		} else if (/^-?\d+(\.\d+)?$/.test(rawValue)) {
-			out[key] = Number(rawValue);
-		} else {
-			out[key] = unquote(rawValue);
-		}
-		i++;
+function parseFrontmatter(frontmatterText: string): Frontmatter {
+	try {
+		const parsed = parseObsidianYaml(frontmatterText) as unknown;
+		return isRecord(parsed) ? parsed : {};
+	} catch (err) {
+		console.warn('[time.md] Failed to parse Obsidian frontmatter YAML', err);
+		return {};
 	}
-	return out;
 }
 
-function unquote(s: string): string {
-	if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
-		return s.slice(1, -1);
+function containsReportSections(frontmatter: Frontmatter): boolean {
+	const sections = frontmatter.sections;
+	if (Array.isArray(sections)) {
+		return sections.some(
+			(section) =>
+				isRecord(section) &&
+				('data' in section || 'rows' in section || 'items' in section || 'headers' in section),
+		);
 	}
-	return s;
+	if (isRecord(sections)) return Object.keys(sections).length > 0;
+	return false;
 }
 
 function buildMetadataFromFrontmatter(fm: Frontmatter, path: string): ReportMetadata {
+	const metaSource = isRecord(fm.metadata) ? fm.metadata : fm;
 	const meta: ReportMetadata = {
-		title: typeof fm.title === 'string' ? fm.title : basename(path),
+		title: stringifyOptional(metaSource.title) ?? stringifyOptional(fm.title) ?? basename(path),
 	};
-	if (typeof fm.date === 'string') meta.generatedAt = parseDate(fm.date);
-	if (typeof fm.created === 'string') meta.generatedAt = parseDate(fm.created) ?? meta.generatedAt;
-	if (typeof fm.total_hours === 'number') meta.totalHours = fm.total_hours;
-	if (typeof fm.total_minutes === 'number') meta.totalMinutes = fm.total_minutes;
-	if (Array.isArray(fm.top_apps)) meta.topApps = fm.top_apps;
-	if (Array.isArray(fm.tags)) meta.tags = fm.tags;
-	if (typeof fm.filters === 'string') meta.filters = fm.filters;
-	if (typeof fm.date_range === 'string') {
-		const range = parseDateRangeText(fm.date_range);
+
+	meta.generatedAt = parseDate(firstValue(metaSource, ['date', 'created', 'generated_at', 'generatedAt']));
+	meta.destination = stringifyOptional(firstValue(metaSource, ['destination']));
+	meta.filters = stringifyOptional(firstValue(metaSource, ['filters']));
+	meta.granularity = stringifyOptional(firstValue(metaSource, ['granularity']));
+	meta.timezone = stringifyOptional(firstValue(metaSource, ['timezone']));
+	meta.schemaVersion = stringifyOptional(firstValue(metaSource, ['schema_version', 'schemaVersion']));
+
+	const totalHours = firstValue(metaSource, ['total_hours', 'totalHours']);
+	if (typeof totalHours === 'number') meta.totalHours = totalHours;
+	const totalMinutes = firstValue(metaSource, ['total_minutes', 'totalMinutes']);
+	if (typeof totalMinutes === 'number') meta.totalMinutes = totalMinutes;
+
+	meta.topApps = stringArray(firstValue(metaSource, ['top_apps', 'topApps']));
+	meta.tags = stringArray(firstValue(metaSource, ['tags']));
+
+	const rangeValue = firstValue(metaSource, ['date_range', 'dateRange']);
+	if (isRecord(rangeValue)) {
+		meta.dateRangeStart = parseDate(firstValue(rangeValue, ['start', 'from']));
+		meta.dateRangeEnd = parseDate(firstValue(rangeValue, ['end', 'to']));
+	} else if (rangeValue !== undefined) {
+		const range = parseDateRangeText(rangeValue);
 		meta.dateRangeStart = range.start;
 		meta.dateRangeEnd = range.end;
 	}
-	if (typeof fm.date_range_start === 'string') meta.dateRangeStart = parseDate(fm.date_range_start) ?? meta.dateRangeStart;
-	if (typeof fm.date_range_end === 'string') meta.dateRangeEnd = parseDate(fm.date_range_end) ?? meta.dateRangeEnd;
-	if (typeof fm.granularity === 'string') meta.granularity = fm.granularity;
-	if (typeof fm.timezone === 'string') meta.timezone = fm.timezone;
-	if (typeof fm.schema_version === 'string' || typeof fm.schema_version === 'number') {
-		meta.schemaVersion = String(fm.schema_version);
-	}
+
+	meta.dateRangeStart =
+		parseDate(firstValue(metaSource, ['date_range_start', 'dateRangeStart'])) ?? meta.dateRangeStart;
+	meta.dateRangeEnd =
+		parseDate(firstValue(metaSource, ['date_range_end', 'dateRangeEnd'])) ?? meta.dateRangeEnd;
+
 	applyFilterMetadata(meta);
 	return meta;
+}
+
+function firstValue(obj: Record<string, unknown>, keys: string[]): unknown {
+	for (const key of keys) {
+		if (obj[key] !== undefined && obj[key] !== null) return obj[key];
+	}
+	return undefined;
+}
+
+function stringArray(value: unknown): string[] | undefined {
+	if (!Array.isArray(value)) return undefined;
+	const strings = value.map((item) => stringifyOptional(item)).filter((item): item is string => item !== undefined);
+	return strings.length > 0 ? strings : undefined;
+}
+
+function stringifyOptional(value: unknown): string | undefined {
+	if (value == null) return undefined;
+	if (value instanceof Date) return value.toISOString();
+	if (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean') {
+		return undefined;
+	}
+	const s = String(value).trim();
+	return s ? s : undefined;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 function basename(path: string): string {

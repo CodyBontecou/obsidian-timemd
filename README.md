@@ -12,8 +12,9 @@ time.md auto-detects and parses every format time.md can export:
 
 - **JSON** (`.json`) — nested or flat
 - **CSV** (`.csv`) — with or without metadata comments and section markers
+- **YAML** (`.yaml`, `.yml`) — nested sections matching time.md's JSON export shape
 - **Markdown** (`.md`) — GitHub-flavored tables with metadata header
-- **Obsidian** (`.md`) — YAML frontmatter + wiki links, fully navigable in place
+- **Obsidian** (`.md`) — YAML frontmatter payloads used by Obsidian/Bases workflows
 
 ## Views
 

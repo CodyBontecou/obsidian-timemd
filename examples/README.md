@@ -23,6 +23,7 @@ The mock exports are intentionally small and synthetic:
 
 - [`visualization-guide.md`](visualization-guide.md) — which `view:` values to use, useful parameters, and required export sections.
 - [`data/README.md`](data/README.md) — how to load, edit, and create mocked exports.
+- [`formats/README.md`](formats/README.md) — equivalent mock exports in JSON, CSV, YAML, Markdown, and Obsidian frontmatter formats.
 - [`input-tracking.md`](input-tracking.md) — a complete input-tracking dashboard note.
 
 ## Templates
