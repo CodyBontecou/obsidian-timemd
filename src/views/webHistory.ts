@@ -524,7 +524,7 @@ function renderDomainTiles(parent: HTMLElement, domains: DomainRow[]): void {
 	const tiles = section.createDiv({ cls: 'timemd-history-domain-tiles' });
 	for (const domain of domains) {
 		const weight = domainWeight(domain);
-		const span = Math.max(1, Math.min(4, Math.ceil(Math.sqrt(weight / maxWeight) * 4)));
+		const span = Math.max(2, Math.min(4, Math.ceil(Math.sqrt(weight / maxWeight) * 4)));
 		const tile = tiles.createDiv({ cls: `timemd-history-domain-tile timemd-history-domain-tile-${span}` });
 		tile.setAttr(
 			'title',
@@ -678,7 +678,7 @@ function summarizeDomainClasses(domains: DomainRow[]): DomainClassSummary[] {
 
 function classifyDomain(domain: string): DomainClass {
 	const d = domain.toLowerCase();
-	if (matchesAny(d, ['github', 'gitlab', 'stackoverflow', 'stackexchange', 'developer', 'docs.', 'jira', 'linear', 'notion', 'confluence', 'atlassian', 'figma', 'localhost', '127.0.0.1', 'vercel', 'npmjs', 'obsidian', 'calendar.google', 'drive.google', 'mail.google'])) {
+	if (matchesAny(d, ['github', 'gitlab', 'stackoverflow', 'stackexchange', 'developer', 'docs.', 'jira', 'linear', 'notion', 'confluence', 'atlassian', 'figma', 'localhost', '127.0.0.1', 'vercel', 'npmjs', 'obsidian', 'timemd', 'time.md', 'calendar.google', 'drive.google', 'mail.google'])) {
 		return 'Work / learning';
 	}
 	if (matchesAny(d, ['youtube', 'netflix', 'hulu', 'twitch', 'spotify', 'podcasts', 'primevideo', 'disneyplus', 'max.com', 'news', 'medium', 'substack'])) {

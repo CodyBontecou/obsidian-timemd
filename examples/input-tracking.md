@@ -11,8 +11,8 @@ exports.
 
 > Drop this file into your vault next to a time.md export folder, and make
 > sure **Settings → time.md → Export folder** points at the folder
-> containing your input-tracking export (e.g. the synthetic
-> `tests/fixtures/input-tracking-sample.json` works out of the box).
+> containing your input-tracking export. For a synthetic preview, point the
+> export folder at `examples/data` to load `mock-input-tracking.json`.
 
 ## Today at a glance
 
@@ -110,3 +110,5 @@ bare: true
 - Need fresh data? Re-export from time.md with **Destination = Input** (or
   **Combined** with the input toggles enabled), drop the file into your
   export folder, and the embeds above re-render automatically.
+- Want a complete synthetic fixture? Use
+  [`examples/data/mock-input-tracking.json`](data/mock-input-tracking.json).

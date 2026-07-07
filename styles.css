@@ -1066,7 +1066,7 @@
 }
 
 .timemd-history-domain-tile-1 {
-	grid-column: span 1;
+	grid-column: span 2;
 	min-height: 96px;
 }
 
@@ -1093,6 +1093,7 @@
 }
 
 .timemd-history-domain-tile-domain {
+	min-width: 0;
 	font-weight: 700;
 	color: var(--text-normal);
 	white-space: nowrap;
@@ -1127,6 +1128,16 @@
 	color: var(--text-muted);
 	font-size: 0.78em;
 	white-space: nowrap;
+}
+
+.timemd-history-domain-tile-meta span {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.timemd-history-domain-tile-meta span:last-child {
+	text-align: right;
 }
 
 .timemd-history-classification .timemd-bars {

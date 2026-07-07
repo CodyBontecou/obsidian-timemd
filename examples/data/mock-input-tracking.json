@@ -1,0 +1,120 @@
+{
+  "title": "Mock Input Tracking — 2026-07-07",
+  "destination": "input",
+  "generated_at": "2026-07-07T23:35:00Z",
+  "date_range_start": "2026-07-07T00:00:00Z",
+  "date_range_end": "2026-07-07T23:59:59Z",
+  "schema_version": "2.0",
+  "timezone": "America/Los_Angeles",
+  "filters": "date_range=2026-07-07..2026-07-07; destination=input; synthetic=true",
+  "sections": [
+    {
+      "name": "input_top_words",
+      "display_name": "Top Typed Words",
+      "headers": ["word", "count"],
+      "data": [
+        { "word": "project", "count": 82 },
+        { "word": "template", "count": 74 },
+        { "word": "export", "count": 68 },
+        { "word": "review", "count": 53 },
+        { "word": "session", "count": 47 },
+        { "word": "plugin", "count": 42 },
+        { "word": "mock", "count": 34 },
+        { "word": "dashboard", "count": 29 },
+        { "word": "focus", "count": 27 },
+        { "word": "today", "count": 21 }
+      ]
+    },
+    {
+      "name": "input_top_keys",
+      "display_name": "Top Typed Keys",
+      "headers": ["key_code", "key_label", "count"],
+      "data": [
+        { "key_code": 49, "key_label": "Space", "count": 1460 },
+        { "key_code": 36, "key_label": "Return", "count": 318 },
+        { "key_code": 51, "key_label": "Delete", "count": 284 },
+        { "key_code": 0, "key_label": "A", "count": 241 },
+        { "key_code": 14, "key_label": "E", "count": 228 },
+        { "key_code": 17, "key_label": "T", "count": 220 },
+        { "key_code": 31, "key_label": "O", "count": 204 },
+        { "key_code": 34, "key_label": "I", "count": 199 },
+        { "key_code": 45, "key_label": "N", "count": 185 },
+        { "key_code": 1, "key_label": "S", "count": 178 }
+      ]
+    },
+    {
+      "name": "input_cursor_heatmap",
+      "display_name": "Cursor Heatmap Bins",
+      "headers": ["screen_id", "bin_x", "bin_y", "samples"],
+      "data": [
+        { "screen_id": 1, "bin_x": 30, "bin_y": 21, "samples": 1630 },
+        { "screen_id": 1, "bin_x": 31, "bin_y": 21, "samples": 1440 },
+        { "screen_id": 1, "bin_x": 32, "bin_y": 22, "samples": 1190 },
+        { "screen_id": 1, "bin_x": 24, "bin_y": 18, "samples": 720 },
+        { "screen_id": 1, "bin_x": 22, "bin_y": 17, "samples": 530 },
+        { "screen_id": 1, "bin_x": 45, "bin_y": 31, "samples": 310 },
+        { "screen_id": 1, "bin_x": 48, "bin_y": 33, "samples": 240 },
+        { "screen_id": 2, "bin_x": 59, "bin_y": 19, "samples": 980 },
+        { "screen_id": 2, "bin_x": 60, "bin_y": 20, "samples": 820 },
+        { "screen_id": 2, "bin_x": 61, "bin_y": 20, "samples": 560 },
+        { "screen_id": 2, "bin_x": 70, "bin_y": 27, "samples": 260 },
+        { "screen_id": 2, "bin_x": 72, "bin_y": 29, "samples": 180 }
+      ]
+    },
+    {
+      "name": "input_typing_intensity",
+      "display_name": "Typing Intensity",
+      "headers": ["timestamp", "keystrokes"],
+      "data": [
+        { "timestamp": "2026-07-07T08:00:00Z", "keystrokes": 22 },
+        { "timestamp": "2026-07-07T09:00:00Z", "keystrokes": 214 },
+        { "timestamp": "2026-07-07T10:00:00Z", "keystrokes": 486 },
+        { "timestamp": "2026-07-07T11:00:00Z", "keystrokes": 398 },
+        { "timestamp": "2026-07-07T12:00:00Z", "keystrokes": 74 },
+        { "timestamp": "2026-07-07T13:00:00Z", "keystrokes": 326 },
+        { "timestamp": "2026-07-07T14:00:00Z", "keystrokes": 712 },
+        { "timestamp": "2026-07-07T15:00:00Z", "keystrokes": 650 },
+        { "timestamp": "2026-07-07T16:00:00Z", "keystrokes": 418 },
+        { "timestamp": "2026-07-07T17:00:00Z", "keystrokes": 96 }
+      ]
+    },
+    {
+      "name": "input_raw_keystrokes",
+      "display_name": "Raw Keystrokes",
+      "headers": ["timestamp", "bundle_id", "app_name", "key_code", "modifiers", "char", "is_word_boundary", "secure_input"],
+      "data": [
+        { "timestamp": "2026-07-07T10:01:02Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 15, "modifiers": 0, "char": "r", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:02Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 14, "modifiers": 0, "char": "e", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:03Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 8, "modifiers": 0, "char": "c", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:03Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 31, "modifiers": 0, "char": "o", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:03Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 37, "modifiers": 0, "char": "l", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:04Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 37, "modifiers": 0, "char": "l", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:04Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 14, "modifiers": 0, "char": "e", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:05Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 8, "modifiers": 0, "char": "c", "is_word_boundary": "0", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:01:05Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "key_code": 17, "modifiers": 0, "char": "t", "is_word_boundary": "1", "secure_input": "0" },
+        { "timestamp": "2026-07-07T10:30:00Z", "bundle_id": "com.apple.Terminal", "app_name": "Terminal", "key_code": 35, "modifiers": 0, "char": "", "is_word_boundary": "0", "secure_input": "1" },
+        { "timestamp": "2026-07-07T10:30:01Z", "bundle_id": "com.apple.Terminal", "app_name": "Terminal", "key_code": 0, "modifiers": 0, "char": "", "is_word_boundary": "0", "secure_input": "1" },
+        { "timestamp": "2026-07-07T10:30:02Z", "bundle_id": "com.apple.Terminal", "app_name": "Terminal", "key_code": 36, "modifiers": 0, "char": "", "is_word_boundary": "1", "secure_input": "1" }
+      ]
+    },
+    {
+      "name": "input_raw_mouse_events",
+      "display_name": "Raw Mouse Events",
+      "headers": ["timestamp", "bundle_id", "app_name", "kind", "button", "x", "y", "screen_id", "scroll_dx", "scroll_dy"],
+      "data": [
+        { "timestamp": "2026-07-07T09:00:10Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "kind": 1, "button": 1, "x": 980, "y": 720, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T09:00:35Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "kind": 1, "button": 1, "x": 1010, "y": 735, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T09:04:00Z", "bundle_id": "md.obsidian", "app_name": "Obsidian", "kind": 3, "button": 0, "x": 1015, "y": 740, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 18 },
+        { "timestamp": "2026-07-07T10:02:00Z", "bundle_id": "com.microsoft.VSCode", "app_name": "VS Code", "kind": 1, "button": 1, "x": 890, "y": 620, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T10:15:00Z", "bundle_id": "com.microsoft.VSCode", "app_name": "VS Code", "kind": 1, "button": 1, "x": 930, "y": 640, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T11:25:00Z", "bundle_id": "com.apple.Safari", "app_name": "Safari", "kind": 1, "button": 1, "x": 1960, "y": 640, "screen_id": 2, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T11:26:00Z", "bundle_id": "com.apple.Safari", "app_name": "Safari", "kind": 1, "button": 1, "x": 1990, "y": 660, "screen_id": 2, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T13:05:00Z", "bundle_id": "com.figma.Desktop", "app_name": "Figma", "kind": 1, "button": 1, "x": 1240, "y": 740, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T13:25:00Z", "bundle_id": "com.figma.Desktop", "app_name": "Figma", "kind": 1, "button": 1, "x": 1275, "y": 750, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T14:08:00Z", "bundle_id": "com.tinyspeck.slackmacgap", "app_name": "Slack", "kind": 1, "button": 1, "x": 820, "y": 590, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T14:40:00Z", "bundle_id": "com.tinyspeck.slackmacgap", "app_name": "Slack", "kind": 1, "button": 1, "x": 840, "y": 610, "screen_id": 1, "scroll_dx": 0, "scroll_dy": 0 },
+        { "timestamp": "2026-07-07T16:10:00Z", "bundle_id": "com.spotify.client", "app_name": "Spotify", "kind": 1, "button": 1, "x": 2260, "y": 890, "screen_id": 2, "scroll_dx": 0, "scroll_dy": 0 }
+      ]
+    }
+  ]
+}

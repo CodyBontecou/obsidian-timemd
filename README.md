@@ -218,6 +218,7 @@ view: overview
 | `legend` | `distribution` | `true` | `false` to hide the legend list (donut-only) |
 | `label` | `distribution` | `true` | `false` to hide the "DISTRIBUTION" label |
 | `bare` | all | `false` | `true` removes the embed's background, border, and padding so the widget sits flush on the note |
+| `colorScheme` | all | plugin setting | per-block palette override: `theme`, `time-md`, `monochrome`, `warm-console`, `graphite-violet`, `system`, `editor-dark`, `midnight`, or `daybreak` |
 | `groupBy` | `reports` | `app` | `app`, `category`, or `day` |
 | `format` | `reports` | `csv` | `csv`, `json`, or `markdown` (used by the in-view Export button) |
 | `title` | all | — | optional heading |
@@ -294,7 +295,10 @@ limit: 20
 ````
 
 A complete sample note that wires every input component together lives at
-[`examples/input-tracking.md`](examples/input-tracking.md).
+[`examples/input-tracking.md`](examples/input-tracking.md). The expanded
+[`examples/`](examples/) directory also includes visualization recipes,
+ready-to-copy note templates, and synthetic exports for previewing dashboards
+without personal data.
 
 ## Setup
 
