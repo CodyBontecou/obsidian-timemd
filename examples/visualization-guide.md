@@ -72,7 +72,6 @@ Use ranked lists when you want a lightweight sidebar widget.
 view: top-apps
 limit: 5
 title: Top apps
-bare: true
 ```
 ````
 

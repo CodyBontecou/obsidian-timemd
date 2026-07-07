@@ -116,7 +116,7 @@ function parseDateParam(value: string): Date | null {
 }
 
 export function parseBlockParams(source: string): BlockParams {
-	const params: BlockParams = { view: 'overview' };
+	const params: BlockParams = { view: 'overview', bare: true };
 	for (const rawLine of source.split(/\r?\n/)) {
 		const line = rawLine.trim();
 		if (!line || line.startsWith('#')) continue;
@@ -208,7 +208,7 @@ export function parseBlockParams(source: string): BlockParams {
 				else if (v === 'false' || v === 'no' || v === '0') params.label = false;
 				break;
 			}
-				case 'bare': {
+			case 'bare': {
 				const v = value.toLowerCase();
 				if (v === 'true' || v === 'yes' || v === '1') params.bare = true;
 				else if (v === 'false' || v === 'no' || v === '0') params.bare = false;
@@ -287,7 +287,7 @@ export function renderEmbed(el: HTMLElement, store: DataStore, params: BlockPara
 
 function renderEmbedInner(el: HTMLElement, store: DataStore, params: BlockParams): void {
 	el.addClass('timemd-embed');
-	if (params.bare) el.addClass('timemd-embed-bare');
+	if (params.bare !== false) el.addClass('timemd-embed-bare');
 	if (!store.hasData()) {
 		el.createDiv({
 			cls: 'timemd-embed-empty',

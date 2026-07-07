@@ -40,7 +40,6 @@ limit: 8
 view: projects
 title: Projects
 limit: 8
-bare: true
 ```
 
 ```timemd
@@ -49,7 +48,6 @@ title: Category donut
 legend: true
 stats: true
 label: true
-bare: true
 ```
 
 ## Rhythm
@@ -58,7 +56,6 @@ bare: true
 view: app-rhythm
 title: App rhythm by hour
 limit: 8
-bare: true
 ```
 
 ```timemd

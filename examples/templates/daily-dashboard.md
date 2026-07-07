@@ -22,14 +22,12 @@ limit: 5
 view: stat
 metric: total_time
 title: Total screen time
-bare: true
 ```
 
 ```timemd
 view: stat
 metric: top_app
 title: Top app
-bare: true
 ```
 
 ## App mix
@@ -78,7 +76,6 @@ height: 200
 view: top-keys
 title: Top keys
 limit: 8
-bare: true
 ```
 
 ## Web activity

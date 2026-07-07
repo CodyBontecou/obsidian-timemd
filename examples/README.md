@@ -35,7 +35,7 @@ Use the files in [`templates/`](templates/) as Obsidian note templates or copy s
 | [`weekly-review.md`](templates/weekly-review.md) | Weekly review with trends, categories, projects, reports, and contribution heatmap. |
 | [`attention-audit.md`](templates/attention-audit.md) | Focus review with Sankey transitions, fragmentation, app lanes, and session waterfall. |
 | [`web-history-review.md`](templates/web-history-review.md) | Browser-history review with timeline, domains, and hourly activity. |
-| [`theme-and-layout-gallery.md`](templates/theme-and-layout-gallery.md) | Palette, `bare: true`, and compact-layout examples. |
+| [`theme-and-layout-gallery.md`](templates/theme-and-layout-gallery.md) | Palette, `bare: false`, and layout examples. |
 
 ## Basic embed shape
 
@@ -56,5 +56,5 @@ Common options:
 - `days:` restricts trend-style views.
 - `date:` supports `today`, `yesterday`, or `YYYY-MM-DD` for overview filters.
 - `height:` controls SVG-heavy views such as cursor heatmaps and typing intensity.
-- `bare: true` removes the embed card border/background for inline layouts.
+- Visualizations are bare by default; add `bare: false` to keep the embed card border/background.
 - `colorScheme:` overrides the plugin color preset for a single block.

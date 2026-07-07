@@ -217,7 +217,7 @@ view: overview
 | `stats` | `distribution` | `true` | `false` to hide the STATS card |
 | `legend` | `distribution` | `true` | `false` to hide the legend list (donut-only) |
 | `label` | `distribution` | `true` | `false` to hide the "DISTRIBUTION" label |
-| `bare` | all | `false` | `true` removes the embed's background, border, and padding so the widget sits flush on the note |
+| `bare` | all | `true` | `false` keeps the embed's card background, border, and padding; default bare widgets sit flush on the note |
 | `colorScheme` | all | plugin setting | per-block palette override: `theme`, `time-md`, `monochrome`, `warm-console`, `graphite-violet`, `system`, `editor-dark`, `midnight`, or `daybreak` |
 | `groupBy` | `reports` | `app` | `app`, `category`, or `day` |
 | `format` | `reports` | `csv` | `csv`, `json`, or `markdown` (used by the in-view Export button) |

@@ -4,7 +4,7 @@ tags: [timemd, gallery, themes]
 
 # Theme and layout gallery
 
-Each `timemd` block can override the global color preset with `colorScheme:`. Use `bare: true` for small widgets that should sit flush with surrounding note content.
+Each `timemd` block can override the global color preset with `colorScheme:`. Widgets are bare by default so they sit flush with surrounding note content; add `bare: false` when you want the embed card chrome.
 
 > [!tip]
 > Keep `timemd` fences as standalone blocks. Markdown tables do not render fenced code blocks inside cells; they show the code as text.
@@ -17,21 +17,18 @@ These three widgets are intentionally standalone so Obsidian can render each `ti
 view: stat
 metric: total_time
 title: Total
-bare: true
 ```
 
 ```timemd
 view: stat
 metric: top_app
 title: Top app
-bare: true
 ```
 
 ```timemd
 view: stat
 metric: days
 title: Days
-bare: true
 ```
 
 ## Palette examples
@@ -78,14 +75,22 @@ limit: 8
 view: top-apps
 title: Top apps compact
 limit: 5
-bare: true
 ```
 
 ```timemd
 view: categories
 title: Categories compact
 limit: 5
-bare: true
+```
+
+## Framed card example
+
+```timemd
+view: overview
+title: Framed overview
+sections: stats, apps
+limit: 5
+bare: false
 ```
 
 ## Available color schemes

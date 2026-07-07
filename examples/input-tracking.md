@@ -79,24 +79,24 @@ title: Clicks per app
 
 ---
 
-## Lean inline variants (`bare: true`)
+## Framed card variants (`bare: false`)
 
-Strip the embed chrome to drop a widget cleanly into a daily-note table or
-sidebar.
+Visualizations are bare by default so widgets sit flush in daily-note tables or
+sidebars. Add `bare: false` when you want Obsidian-style card chrome.
 
-| Stat strip | Top keys (compact) |
-|-----------|---------------------|
-| ```timemd<br/>view: input-stats<br/>bare: true<br/>``` | ```timemd<br/>view: top-keys<br/>limit: 5<br/>bare: true<br/>``` |
+| Input stats card | Top keys card |
+|------------------|---------------|
+| ```timemd<br/>view: input-stats<br/>bare: false<br/>``` | ```timemd<br/>view: top-keys<br/>limit: 5<br/>bare: false<br/>``` |
 
 ```timemd
 view: input-stats
-bare: true
+bare: false
 ```
 
 ```timemd
 view: top-keys
 limit: 5
-bare: true
+bare: false
 ```
 
 ---
