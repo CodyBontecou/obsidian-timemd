@@ -1,5 +1,7 @@
 # time.md for Obsidian
 
+<img src="docs/assets/readme-hero.png" alt="time.md for Obsidian: Your Mac's hours, inside Obsidian" width="100%">
+
 time.md navigates and visualizes data exported from the [time.md](https://timemd.app) screen-time analytics app, directly inside Obsidian.
 
 Drop any time.md export into a folder in your vault and time.md recreates the core time.md experience — Overview, Trends, Calendar, Details, and Apps & Categories views — without needing to open the app.
