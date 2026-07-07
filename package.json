@@ -1,6 +1,6 @@
 {
 	"name": "time.md",
-	"version": "0.3.14",
+	"version": "0.3.16",
 	"description": "Navigate and visualize data exported from the time.md screen-time analytics app.",
 	"main": "main.js",
 	"type": "module",

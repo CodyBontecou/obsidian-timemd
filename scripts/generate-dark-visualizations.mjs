@@ -1,4 +1,5 @@
 import esbuild from 'esbuild';
+import { Buffer } from 'node:buffer';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
@@ -335,7 +336,7 @@ function sumBy(rows, key) { const m = new Map(); for (const r of rows) m.set(r[k
 function isoLocal(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}T${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:00`; }
 function titleForDomain(domain) { if (domain.includes('github')) return 'Pull request review and issue triage'; if (domain.includes('developer')) return 'Apple developer documentation'; if (domain.includes('obsidian')) return 'Obsidian plugin API reference'; if (domain.includes('stackoverflow')) return 'TypeScript rendering answer'; if (domain.includes('figma')) return 'Design system review'; return `${domain} page`; }
 function findFreePort() { return new Promise((resolve, reject) => { const s = net.createServer(); s.listen(0, () => { const port = s.address().port; s.close(() => resolve(port)); }); s.on('error', reject); }); }
-async function waitForChrome(port) { for (let i=0;i<80;i++) { try { const r = await fetch(`http://127.0.0.1:${port}/json/version`); if (r.ok) return; } catch {} await new Promise(r => setTimeout(r, 100)); } throw new Error('Chrome did not start'); }
+async function waitForChrome(port) { for (let i=0;i<80;i++) { try { const r = await fetch(`http://127.0.0.1:${port}/json/version`); if (r.ok) return; } catch { /* keep polling until Chrome is ready */ } await new Promise(r => setTimeout(r, 100)); } throw new Error('Chrome did not start'); }
 async function newTarget(port, url) { const r = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent(url)}`, { method: 'PUT' }); if (!r.ok) throw new Error(`new target failed ${r.status}`); return r.json(); }
 async function closeTarget(port, id) { await fetch(`http://127.0.0.1:${port}/json/close/${id}`); }
 async function waitReady(cdp) { for (let i=0;i<100;i++) { const res = await cdp.send('Runtime.evaluate', { expression: 'window.__TIMEMD_READY === true', returnByValue: true }); if (res.result?.value === true) return; await new Promise(r => setTimeout(r, 100)); } const err = await cdp.send('Runtime.evaluate', { expression: 'document.body.innerText', returnByValue: true }); throw new Error(`page not ready: ${err.result?.value}`); }
